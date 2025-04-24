@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fit.dao.OsfEventsDao">
+  <resultMap id="BaseResultMap" type="com.fit.entity.OsfEvents">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="object_type" jdbcType="INTEGER" property="objectType" />
+    <result column="object_id" jdbcType="INTEGER" property="objectId" />
+    <result column="ts" jdbcType="TIMESTAMP" property="ts" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_avatar" jdbcType="VARCHAR" property="userAvatar" />
+    <result column="like_count" jdbcType="INTEGER" property="likeCount" />
+    <result column="share_count" jdbcType="INTEGER" property="shareCount" />
+    <result column="comment_count" jdbcType="INTEGER" property="commentCount" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="summary" jdbcType="VARCHAR" property="summary" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="tags" jdbcType="VARCHAR" property="tags" />
+    <result column="following_user_id" jdbcType="INTEGER" property="followingUserId" />
+    <result column="following_user_name" jdbcType="VARCHAR" property="followingUserName" />
+    <result column="follower_user_id" jdbcType="INTEGER" property="followerUserId" />
+    <result column="follower_user_name" jdbcType="VARCHAR" property="followerUserName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, object_type, object_id, ts, user_id, user_name, user_avatar, like_count, share_count, 
+    comment_count, title, summary, content, tags, following_user_id, following_user_name, 
+    follower_user_id, follower_user_name
+  </sql>
+  <select id="getById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from osf_events
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from osf_events
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="save" keyProperty="id" parameterType="com.fit.entity.OsfEvents" useGeneratedKeys="true">
+    insert into osf_events
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="objectType != null">
+        object_type,
+      </if>
+      <if test="objectId != null">
+        object_id,
+      </if>
+      <if test="ts != null">
+        ts,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userAvatar != null">
+        user_avatar,
+      </if>
+      <if test="likeCount != null">
+        like_count,
+      </if>
+      <if test="shareCount != null">
+        share_count,
+      </if>
+      <if test="commentCount != null">
+        comment_count,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="summary != null">
+        summary,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="tags != null">
+        tags,
+      </if>
+      <if test="followingUserId != null">
+        following_user_id,
+      </if>
+      <if test="followingUserName != null">
+        following_user_name,
+      </if>
+      <if test="followerUserId != null">
+        follower_user_id,
+      </if>
+      <if test="followerUserName != null">
+        follower_user_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="objectType != null">
+        #{objectType,jdbcType=INTEGER},
+      </if>
+      <if test="objectId != null">
+        #{objectId,jdbcType=INTEGER},
+      </if>
+      <if test="ts != null">
+        #{ts,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAvatar != null">
+        #{userAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="likeCount != null">
+        #{likeCount,jdbcType=INTEGER},
+      </if>
+      <if test="shareCount != null">
+        #{shareCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentCount != null">
+        #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="tags != null">
+        #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="followingUserId != null">
+        #{followingUserId,jdbcType=INTEGER},
+      </if>
+      <if test="followingUserName != null">
+        #{followingUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="followerUserId != null">
+        #{followerUserId,jdbcType=INTEGER},
+      </if>
+      <if test="followerUserName != null">
+        #{followerUserName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.fit.entity.OsfEvents">
+    update osf_events
+    <set>
+      <if test="objectType != null">
+        object_type = #{objectType,jdbcType=INTEGER},
+      </if>
+      <if test="objectId != null">
+        object_id = #{objectId,jdbcType=INTEGER},
+      </if>
+      <if test="ts != null">
+        ts = #{ts,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAvatar != null">
+        user_avatar = #{userAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="likeCount != null">
+        like_count = #{likeCount,jdbcType=INTEGER},
+      </if>
+      <if test="shareCount != null">
+        share_count = #{shareCount,jdbcType=INTEGER},
+      </if>
+      <if test="commentCount != null">
+        comment_count = #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="tags != null">
+        tags = #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="followingUserId != null">
+        following_user_id = #{followingUserId,jdbcType=INTEGER},
+      </if>
+      <if test="followingUserName != null">
+        following_user_name = #{followingUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="followerUserId != null">
+        follower_user_id = #{followerUserId,jdbcType=INTEGER},
+      </if>
+      <if test="followerUserName != null">
+        follower_user_name = #{followerUserName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="objectType != null">
+         and object_type = #{objectType,jdbcType=INTEGER}
+      </if>
+      <if test="objectId != null">
+         and object_id = #{objectId,jdbcType=INTEGER}
+      </if>
+      <if test="ts != null">
+         and ts = #{ts,jdbcType=TIMESTAMP}
+      </if>
+      <if test="userId != null">
+         and user_id = #{userId,jdbcType=INTEGER}
+      </if>
+      <if test="userName != null and userName != ''">
+         and user_name = #{userName,jdbcType=VARCHAR}
+      </if>
+      <if test="userAvatar != null and userAvatar != ''">
+         and user_avatar = #{userAvatar,jdbcType=VARCHAR}
+      </if>
+      <if test="likeCount != null">
+         and like_count = #{likeCount,jdbcType=INTEGER}
+      </if>
+      <if test="shareCount != null">
+         and share_count = #{shareCount,jdbcType=INTEGER}
+      </if>
+      <if test="commentCount != null">
+         and comment_count = #{commentCount,jdbcType=INTEGER}
+      </if>
+      <if test="title != null and title != ''">
+         and title = #{title,jdbcType=VARCHAR}
+      </if>
+      <if test="summary != null and summary != ''">
+         and summary = #{summary,jdbcType=VARCHAR}
+      </if>
+      <if test="content != null and content != ''">
+         and content = #{content,jdbcType=VARCHAR}
+      </if>
+      <if test="tags != null and tags != ''">
+         and tags = #{tags,jdbcType=VARCHAR}
+      </if>
+      <if test="followingUserId != null">
+         and following_user_id = #{followingUserId,jdbcType=INTEGER}
+      </if>
+      <if test="followingUserName != null and followingUserName != ''">
+         and following_user_name = #{followingUserName,jdbcType=VARCHAR}
+      </if>
+      <if test="followerUserId != null">
+         and follower_user_id = #{followerUserId,jdbcType=INTEGER}
+      </if>
+      <if test="followerUserName != null and followerUserName != ''">
+         and follower_user_name = #{followerUserName,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+  <select id="findList" parameterType="com.fit.entity.OsfEvents" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from osf_events
+    <include refid="Base_Where_List" />
+    order by `id` desc 
+    <if test="offset != null and limit != null">
+	limit ${offset}, ${limit}
+	</if>
+  </select>
+  <select id="findCount" resultType="java.lang.Integer">
+    select count(1) from osf_events
+    <include refid="Base_Where_List" />
+  </select>
+  <select id="get" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from osf_events
+     <include refid="Base_Where_List" />
+  </select>
+  <delete id="batchDelete">
+    delete from osf_events
+     where id in (
+     <foreach collection="array" item="id" separator=",">
+     #{id}
+     </foreach>
+    )
+  </delete>
+</mapper>

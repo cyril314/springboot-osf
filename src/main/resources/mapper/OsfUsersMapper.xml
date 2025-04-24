@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fit.dao.OsfUsersDao">
+  <resultMap id="BaseResultMap" type="com.fit.entity.OsfUsers">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+    <result column="user_pwd" jdbcType="VARCHAR" property="userPwd" />
+    <result column="user_registered_date" jdbcType="TIMESTAMP" property="userRegisteredDate" />
+    <result column="user_status" jdbcType="INTEGER" property="userStatus" />
+    <result column="user_activationKey" jdbcType="VARCHAR" property="userActivationkey" />
+    <result column="user_avatar" jdbcType="VARCHAR" property="userAvatar" />
+    <result column="user_desc" jdbcType="VARCHAR" property="userDesc" />
+    <result column="resetpwd_key" jdbcType="VARCHAR" property="resetpwdKey" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_name, user_email, user_pwd, user_registered_date, user_status, user_activationKey, 
+    user_avatar, user_desc, resetpwd_key
+  </sql>
+  <select id="getById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from osf_users
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from osf_users
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="save" keyProperty="id" parameterType="com.fit.entity.OsfUsers" useGeneratedKeys="true">
+    insert into osf_users
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userEmail != null">
+        user_email,
+      </if>
+      <if test="userPwd != null">
+        user_pwd,
+      </if>
+      <if test="userRegisteredDate != null">
+        user_registered_date,
+      </if>
+      <if test="userStatus != null">
+        user_status,
+      </if>
+      <if test="userActivationkey != null">
+        user_activationKey,
+      </if>
+      <if test="userAvatar != null">
+        user_avatar,
+      </if>
+      <if test="userDesc != null">
+        user_desc,
+      </if>
+      <if test="resetpwdKey != null">
+        resetpwd_key,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null">
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null">
+        #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userRegisteredDate != null">
+        #{userRegisteredDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userStatus != null">
+        #{userStatus,jdbcType=INTEGER},
+      </if>
+      <if test="userActivationkey != null">
+        #{userActivationkey,jdbcType=VARCHAR},
+      </if>
+      <if test="userAvatar != null">
+        #{userAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="userDesc != null">
+        #{userDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="resetpwdKey != null">
+        #{resetpwdKey,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.fit.entity.OsfUsers">
+    update osf_users
+    <set>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null">
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null">
+        user_pwd = #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userRegisteredDate != null">
+        user_registered_date = #{userRegisteredDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userStatus != null">
+        user_status = #{userStatus,jdbcType=INTEGER},
+      </if>
+      <if test="userActivationkey != null">
+        user_activationKey = #{userActivationkey,jdbcType=VARCHAR},
+      </if>
+      <if test="userAvatar != null">
+        user_avatar = #{userAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="userDesc != null">
+        user_desc = #{userDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="resetpwdKey != null">
+        resetpwd_key = #{resetpwdKey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="userName != null and userName != ''">
+         and user_name = #{userName,jdbcType=VARCHAR}
+      </if>
+      <if test="userEmail != null and userEmail != ''">
+         and user_email = #{userEmail,jdbcType=VARCHAR}
+      </if>
+      <if test="userPwd != null and userPwd != ''">
+         and user_pwd = #{userPwd,jdbcType=VARCHAR}
+      </if>
+      <if test="userRegisteredDate != null">
+         and user_registered_date = #{userRegisteredDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="userStatus != null">
+         and user_status = #{userStatus,jdbcType=INTEGER}
+      </if>
+      <if test="userActivationkey != null and userActivationkey != ''">
+         and user_activationKey = #{userActivationkey,jdbcType=VARCHAR}
+      </if>
+      <if test="userAvatar != null and userAvatar != ''">
+         and user_avatar = #{userAvatar,jdbcType=VARCHAR}
+      </if>
+      <if test="userDesc != null and userDesc != ''">
+         and user_desc = #{userDesc,jdbcType=VARCHAR}
+      </if>
+      <if test="resetpwdKey != null and resetpwdKey != ''">
+         and resetpwd_key = #{resetpwdKey,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+  <select id="findList" parameterType="com.fit.entity.OsfUsers" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from osf_users
+    <include refid="Base_Where_List" />
+    order by `id` desc 
+    <if test="offset != null and limit != null">
+	limit ${offset}, ${limit}
+	</if>
+  </select>
+  <select id="findCount" resultType="java.lang.Integer">
+    select count(1) from osf_users
+    <include refid="Base_Where_List" />
+  </select>
+  <select id="get" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from osf_users
+     <include refid="Base_Where_List" />
+  </select>
+  <delete id="batchDelete">
+    delete from osf_users
+     where id in (
+     <foreach collection="array" item="id" separator=",">
+     #{id}
+     </foreach>
+    )
+  </delete>
+</mapper>

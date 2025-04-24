@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fit.dao.OsfFollowersDao">
+  <resultMap id="BaseResultMap" type="com.fit.entity.OsfFollowers">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="follower_user_id" jdbcType="INTEGER" property="followerUserId" />
+    <result column="follower_user_name" jdbcType="VARCHAR" property="followerUserName" />
+    <result column="ts" jdbcType="TIMESTAMP" property="ts" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, user_name, follower_user_id, follower_user_name, ts
+  </sql>
+  <select id="getById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from osf_followers
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from osf_followers
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="save" keyProperty="id" parameterType="com.fit.entity.OsfFollowers" useGeneratedKeys="true">
+    insert into osf_followers
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="followerUserId != null">
+        follower_user_id,
+      </if>
+      <if test="followerUserName != null">
+        follower_user_name,
+      </if>
+      <if test="ts != null">
+        ts,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="followerUserId != null">
+        #{followerUserId,jdbcType=INTEGER},
+      </if>
+      <if test="followerUserName != null">
+        #{followerUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="ts != null">
+        #{ts,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.fit.entity.OsfFollowers">
+    update osf_followers
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="followerUserId != null">
+        follower_user_id = #{followerUserId,jdbcType=INTEGER},
+      </if>
+      <if test="followerUserName != null">
+        follower_user_name = #{followerUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="ts != null">
+        ts = #{ts,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="userId != null">
+         and user_id = #{userId,jdbcType=INTEGER}
+      </if>
+      <if test="userName != null and userName != ''">
+         and user_name = #{userName,jdbcType=VARCHAR}
+      </if>
+      <if test="followerUserId != null">
+         and follower_user_id = #{followerUserId,jdbcType=INTEGER}
+      </if>
+      <if test="followerUserName != null and followerUserName != ''">
+         and follower_user_name = #{followerUserName,jdbcType=VARCHAR}
+      </if>
+      <if test="ts != null">
+         and ts = #{ts,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </sql>
+  <select id="findList" parameterType="com.fit.entity.OsfFollowers" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from osf_followers
+    <include refid="Base_Where_List" />
+    order by `id` desc 
+    <if test="offset != null and limit != null">
+	limit ${offset}, ${limit}
+	</if>
+  </select>
+  <select id="findCount" resultType="java.lang.Integer">
+    select count(1) from osf_followers
+    <include refid="Base_Where_List" />
+  </select>
+  <select id="get" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from osf_followers
+     <include refid="Base_Where_List" />
+  </select>
+  <delete id="batchDelete">
+    delete from osf_followers
+     where id in (
+     <foreach collection="array" item="id" separator=",">
+     #{id}
+     </foreach>
+    )
+  </delete>
+</mapper>

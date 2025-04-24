@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fit.dao.OsfRelationsDao">
+  <resultMap id="BaseResultMap" type="com.fit.entity.OsfRelations">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="object_type" jdbcType="INTEGER" property="objectType" />
+    <result column="object_id" jdbcType="INTEGER" property="objectId" />
+    <result column="tag_id" jdbcType="INTEGER" property="tagId" />
+    <result column="add_ts" jdbcType="TIMESTAMP" property="addTs" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, object_type, object_id, tag_id, add_ts
+  </sql>
+  <select id="getById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from osf_relations
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from osf_relations
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="save" keyProperty="id" parameterType="com.fit.entity.OsfRelations" useGeneratedKeys="true">
+    insert into osf_relations
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="objectType != null">
+        object_type,
+      </if>
+      <if test="objectId != null">
+        object_id,
+      </if>
+      <if test="tagId != null">
+        tag_id,
+      </if>
+      <if test="addTs != null">
+        add_ts,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="objectType != null">
+        #{objectType,jdbcType=INTEGER},
+      </if>
+      <if test="objectId != null">
+        #{objectId,jdbcType=INTEGER},
+      </if>
+      <if test="tagId != null">
+        #{tagId,jdbcType=INTEGER},
+      </if>
+      <if test="addTs != null">
+        #{addTs,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.fit.entity.OsfRelations">
+    update osf_relations
+    <set>
+      <if test="objectType != null">
+        object_type = #{objectType,jdbcType=INTEGER},
+      </if>
+      <if test="objectId != null">
+        object_id = #{objectId,jdbcType=INTEGER},
+      </if>
+      <if test="tagId != null">
+        tag_id = #{tagId,jdbcType=INTEGER},
+      </if>
+      <if test="addTs != null">
+        add_ts = #{addTs,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="objectType != null">
+         and object_type = #{objectType,jdbcType=INTEGER}
+      </if>
+      <if test="objectId != null">
+         and object_id = #{objectId,jdbcType=INTEGER}
+      </if>
+      <if test="tagId != null">
+         and tag_id = #{tagId,jdbcType=INTEGER}
+      </if>
+      <if test="addTs != null">
+         and add_ts = #{addTs,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </sql>
+  <select id="findList" parameterType="com.fit.entity.OsfRelations" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from osf_relations
+    <include refid="Base_Where_List" />
+    order by `id` desc 
+    <if test="offset != null and limit != null">
+	limit ${offset}, ${limit}
+	</if>
+  </select>
+  <select id="findCount" resultType="java.lang.Integer">
+    select count(1) from osf_relations
+    <include refid="Base_Where_List" />
+  </select>
+  <select id="get" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from osf_relations
+     <include refid="Base_Where_List" />
+  </select>
+  <delete id="batchDelete">
+    delete from osf_relations
+     where id in (
+     <foreach collection="array" item="id" separator=",">
+     #{id}
+     </foreach>
+    )
+  </delete>
+</mapper>

@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fit.dao.OsfPostsDao">
+  <resultMap id="BaseResultMap" type="com.fit.entity.OsfPosts">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="post_author" jdbcType="INTEGER" property="postAuthor" />
+    <result column="post_ts" jdbcType="TIMESTAMP" property="postTs" />
+    <result column="post_content" jdbcType="VARCHAR" property="postContent" />
+    <result column="post_title" jdbcType="VARCHAR" property="postTitle" />
+    <result column="post_excerpt" jdbcType="VARCHAR" property="postExcerpt" />
+    <result column="post_status" jdbcType="INTEGER" property="postStatus" />
+    <result column="comment_status" jdbcType="INTEGER" property="commentStatus" />
+    <result column="post_pwd" jdbcType="VARCHAR" property="postPwd" />
+    <result column="post_lasts" jdbcType="TIMESTAMP" property="postLasts" />
+    <result column="comment_count" jdbcType="INTEGER" property="commentCount" />
+    <result column="like_count" jdbcType="INTEGER" property="likeCount" />
+    <result column="share_count" jdbcType="INTEGER" property="shareCount" />
+    <result column="post_url" jdbcType="VARCHAR" property="postUrl" />
+    <result column="post_tags" jdbcType="VARCHAR" property="postTags" />
+    <result column="post_album" jdbcType="INTEGER" property="postAlbum" />
+    <result column="post_cover" jdbcType="VARCHAR" property="postCover" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, post_author, post_ts, post_content, post_title, post_excerpt, post_status, comment_status, 
+    post_pwd, post_lasts, comment_count, like_count, share_count, post_url, post_tags,
+    post_album, post_cover
+  </sql>
+  <select id="getById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from osf_posts
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from osf_posts
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="save" keyProperty="id" parameterType="com.fit.entity.OsfPosts" useGeneratedKeys="true">
+    insert into osf_posts
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="postAuthor != null">
+        post_author,
+      </if>
+      <if test="postTs != null">
+        post_ts,
+      </if>
+      <if test="postContent != null">
+        post_content,
+      </if>
+      <if test="postTitle != null">
+        post_title,
+      </if>
+      <if test="postExcerpt != null">
+        post_excerpt,
+      </if>
+      <if test="postStatus != null">
+        post_status,
+      </if>
+      <if test="commentStatus != null">
+        comment_status,
+      </if>
+      <if test="postPwd != null">
+        post_pwd,
+      </if>
+      <if test="postLasts != null">
+        post_lasts,
+      </if>
+      <if test="commentCount != null">
+        comment_count,
+      </if>
+      <if test="likeCount != null">
+        like_count,
+      </if>
+      <if test="shareCount != null">
+        share_count,
+      </if>
+      <if test="postUrl != null">
+        post_url,
+      </if>
+      <if test="postTags != null">
+        post_tags,
+      </if>
+      <if test="postAlbum != null">
+        post_album,
+      </if>
+      <if test="postCover != null">
+        post_cover,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="postAuthor != null">
+        #{postAuthor,jdbcType=INTEGER},
+      </if>
+      <if test="postTs != null">
+        #{postTs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="postContent != null">
+        #{postContent,jdbcType=VARCHAR},
+      </if>
+      <if test="postTitle != null">
+        #{postTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="postExcerpt != null">
+        #{postExcerpt,jdbcType=VARCHAR},
+      </if>
+      <if test="postStatus != null">
+        #{postStatus,jdbcType=INTEGER},
+      </if>
+      <if test="commentStatus != null">
+        #{commentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="postPwd != null">
+        #{postPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="postLasts != null">
+        #{postLasts,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commentCount != null">
+        #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="likeCount != null">
+        #{likeCount,jdbcType=INTEGER},
+      </if>
+      <if test="shareCount != null">
+        #{shareCount,jdbcType=INTEGER},
+      </if>
+      <if test="postUrl != null">
+        #{postUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="postTags != null">
+        #{postTags,jdbcType=VARCHAR},
+      </if>
+      <if test="postAlbum != null">
+        #{postAlbum,jdbcType=INTEGER},
+      </if>
+      <if test="postCover != null">
+        #{postCover,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.fit.entity.OsfPosts">
+    update osf_posts
+    <set>
+      <if test="postAuthor != null">
+        post_author = #{postAuthor,jdbcType=INTEGER},
+      </if>
+      <if test="postTs != null">
+        post_ts = #{postTs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="postContent != null">
+        post_content = #{postContent,jdbcType=VARCHAR},
+      </if>
+      <if test="postTitle != null">
+        post_title = #{postTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="postExcerpt != null">
+        post_excerpt = #{postExcerpt,jdbcType=VARCHAR},
+      </if>
+      <if test="postStatus != null">
+        post_status = #{postStatus,jdbcType=INTEGER},
+      </if>
+      <if test="commentStatus != null">
+        comment_status = #{commentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="postPwd != null">
+        post_pwd = #{postPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="postLasts != null">
+        post_lasts = #{postLasts,jdbcType=TIMESTAMP},
+      </if>
+      <if test="commentCount != null">
+        comment_count = #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="likeCount != null">
+        like_count = #{likeCount,jdbcType=INTEGER},
+      </if>
+      <if test="shareCount != null">
+        share_count = #{shareCount,jdbcType=INTEGER},
+      </if>
+      <if test="postUrl != null">
+        post_url = #{postUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="postTags != null">
+        post_tags = #{postTags,jdbcType=VARCHAR},
+      </if>
+      <if test="postAlbum != null">
+        post_album = #{postAlbum,jdbcType=INTEGER},
+      </if>
+      <if test="postCover != null">
+        post_cover = #{postCover,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="postAuthor != null">
+         and post_author = #{postAuthor,jdbcType=INTEGER}
+      </if>
+      <if test="postTs != null">
+         and post_ts = #{postTs,jdbcType=TIMESTAMP}
+      </if>
+      <if test="postContent != null and postContent != ''">
+         and post_content = #{postContent,jdbcType=VARCHAR}
+      </if>
+      <if test="postTitle != null and postTitle != ''">
+         and post_title = #{postTitle,jdbcType=VARCHAR}
+      </if>
+      <if test="postExcerpt != null and postExcerpt != ''">
+         and post_excerpt = #{postExcerpt,jdbcType=VARCHAR}
+      </if>
+      <if test="postStatus != null">
+         and post_status = #{postStatus,jdbcType=INTEGER}
+      </if>
+      <if test="commentStatus != null">
+         and comment_status = #{commentStatus,jdbcType=INTEGER}
+      </if>
+      <if test="postPwd != null and postPwd != ''">
+         and post_pwd = #{postPwd,jdbcType=VARCHAR}
+      </if>
+      <if test="postLasts != null">
+         and post_lasts = #{postLasts,jdbcType=TIMESTAMP}
+      </if>
+      <if test="commentCount != null">
+         and comment_count = #{commentCount,jdbcType=INTEGER}
+      </if>
+      <if test="likeCount != null">
+         and like_count = #{likeCount,jdbcType=INTEGER}
+      </if>
+      <if test="shareCount != null">
+         and share_count = #{shareCount,jdbcType=INTEGER}
+      </if>
+      <if test="postUrl != null and postUrl != ''">
+         and post_url = #{postUrl,jdbcType=VARCHAR}
+      </if>
+      <if test="postTags != null and postTags != ''">
+         and post_tags = #{postTags,jdbcType=VARCHAR}
+      </if>
+      <if test="postAlbum != null">
+         and post_album = #{postAlbum,jdbcType=INTEGER}
+      </if>
+      <if test="postCover != null and postCover != ''">
+         and post_cover = #{postCover,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+  <select id="findList" parameterType="com.fit.entity.OsfPosts" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from osf_posts
+    <include refid="Base_Where_List" />
+    order by `id` desc 
+    <if test="offset != null and limit != null">
+	limit ${offset}, ${limit}
+	</if>
+  </select>
+  <select id="findCount" resultType="java.lang.Integer">
+    select count(1) from osf_posts
+    <include refid="Base_Where_List" />
+  </select>
+  <select id="get" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from osf_posts
+     <include refid="Base_Where_List" />
+  </select>
+  <delete id="batchDelete">
+    delete from osf_posts
+     where id in (
+     <foreach collection="array" item="id" separator=",">
+     #{id}
+     </foreach>
+    )
+  </delete>
+</mapper>

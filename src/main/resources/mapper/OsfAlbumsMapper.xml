@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fit.dao.OsfAlbumsDao">
+  <resultMap id="BaseResultMap" type="com.fit.entity.OsfAlbums">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="create_ts" jdbcType="TIMESTAMP" property="createTs" />
+    <result column="album_title" jdbcType="VARCHAR" property="albumTitle" />
+    <result column="album_desc" jdbcType="VARCHAR" property="albumDesc" />
+    <result column="last_add_ts" jdbcType="TIMESTAMP" property="lastAddTs" />
+    <result column="photos_count" jdbcType="INTEGER" property="photosCount" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="cover" jdbcType="VARCHAR" property="cover" />
+    <result column="album_tags" jdbcType="VARCHAR" property="albumTags" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, create_ts, album_title, album_desc, last_add_ts, photos_count, `status`, 
+    cover, album_tags
+  </sql>
+  <select id="getById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from osf_albums
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from osf_albums
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="save" keyProperty="id" parameterType="com.fit.entity.OsfAlbums" useGeneratedKeys="true">
+    insert into osf_albums
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="createTs != null">
+        create_ts,
+      </if>
+      <if test="albumTitle != null">
+        album_title,
+      </if>
+      <if test="albumDesc != null">
+        album_desc,
+      </if>
+      <if test="lastAddTs != null">
+        last_add_ts,
+      </if>
+      <if test="photosCount != null">
+        photos_count,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="cover != null">
+        cover,
+      </if>
+      <if test="albumTags != null">
+        album_tags,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="createTs != null">
+        #{createTs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="albumTitle != null">
+        #{albumTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="albumDesc != null">
+        #{albumDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="lastAddTs != null">
+        #{lastAddTs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="photosCount != null">
+        #{photosCount,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="cover != null">
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="albumTags != null">
+        #{albumTags,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.fit.entity.OsfAlbums">
+    update osf_albums
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="createTs != null">
+        create_ts = #{createTs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="albumTitle != null">
+        album_title = #{albumTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="albumDesc != null">
+        album_desc = #{albumDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="lastAddTs != null">
+        last_add_ts = #{lastAddTs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="photosCount != null">
+        photos_count = #{photosCount,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="cover != null">
+        cover = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="albumTags != null">
+        album_tags = #{albumTags,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="userId != null">
+         and user_id = #{userId,jdbcType=INTEGER}
+      </if>
+      <if test="createTs != null">
+         and create_ts = #{createTs,jdbcType=TIMESTAMP}
+      </if>
+      <if test="albumTitle != null and albumTitle != ''">
+         and album_title = #{albumTitle,jdbcType=VARCHAR}
+      </if>
+      <if test="albumDesc != null and albumDesc != ''">
+         and album_desc = #{albumDesc,jdbcType=VARCHAR}
+      </if>
+      <if test="lastAddTs != null">
+         and last_add_ts = #{lastAddTs,jdbcType=TIMESTAMP}
+      </if>
+      <if test="photosCount != null">
+         and photos_count = #{photosCount,jdbcType=INTEGER}
+      </if>
+      <if test="status != null">
+         and `status` = #{status,jdbcType=INTEGER}
+      </if>
+      <if test="cover != null and cover != ''">
+         and cover = #{cover,jdbcType=VARCHAR}
+      </if>
+      <if test="albumTags != null and albumTags != ''">
+         and album_tags = #{albumTags,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+  <select id="findList" parameterType="com.fit.entity.OsfAlbums" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from osf_albums
+    <include refid="Base_Where_List" />
+    order by `id` desc 
+    <if test="offset != null and limit != null">
+	limit ${offset}, ${limit}
+	</if>
+  </select>
+  <select id="findCount" resultType="java.lang.Integer">
+    select count(1) from osf_albums
+    <include refid="Base_Where_List" />
+  </select>
+  <select id="get" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from osf_albums
+     <include refid="Base_Where_List" />
+  </select>
+  <delete id="batchDelete">
+    delete from osf_albums
+     where id in (
+     <foreach collection="array" item="id" separator=",">
+     #{id}
+     </foreach>
+    )
+  </delete>
+</mapper>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fit.dao.OsfTagsDao">
+  <resultMap id="BaseResultMap" type="com.fit.entity.OsfTags">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="tag" jdbcType="VARCHAR" property="tag" />
+    <result column="add_ts" jdbcType="TIMESTAMP" property="addTs" />
+    <result column="cover" jdbcType="VARCHAR" property="cover" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, tag, add_ts, cover
+  </sql>
+  <select id="getById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from osf_tags
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer">
+    delete from osf_tags
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="save" keyProperty="id" parameterType="com.fit.entity.OsfTags" useGeneratedKeys="true">
+    insert into osf_tags
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="tag != null">
+        tag,
+      </if>
+      <if test="addTs != null">
+        add_ts,
+      </if>
+      <if test="cover != null">
+        cover,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="tag != null">
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="addTs != null">
+        #{addTs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cover != null">
+        #{cover,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.fit.entity.OsfTags">
+    update osf_tags
+    <set>
+      <if test="tag != null">
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="addTs != null">
+        add_ts = #{addTs,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cover != null">
+        cover = #{cover,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <sql id="Base_Where_List">
+    <where>
+      <if test="tag != null and tag != ''">
+         and tag = #{tag,jdbcType=VARCHAR}
+      </if>
+      <if test="addTs != null">
+         and add_ts = #{addTs,jdbcType=TIMESTAMP}
+      </if>
+      <if test="cover != null and cover != ''">
+         and cover = #{cover,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+  <select id="findList" parameterType="com.fit.entity.OsfTags" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from osf_tags
+    <include refid="Base_Where_List" />
+    order by `id` desc 
+    <if test="offset != null and limit != null">
+	limit ${offset}, ${limit}
+	</if>
+  </select>
+  <select id="findCount" resultType="java.lang.Integer">
+    select count(1) from osf_tags
+    <include refid="Base_Where_List" />
+  </select>
+  <select id="get" parameterType="java.util.Map" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+     from osf_tags
+     <include refid="Base_Where_List" />
+  </select>
+  <delete id="batchDelete">
+    delete from osf_tags
+     where id in (
+     <foreach collection="array" item="id" separator=",">
+     #{id}
+     </foreach>
+    )
+  </delete>
+</mapper>
